@@ -1,119 +1,68 @@
-import random
-import datetime
-from pytz import timezone, utc
+import os
 
 import discord
 from discord.ext import commands
-from discord.utils import get
+import discord.utils
 
-BOT_PREFIX = "!"
-bot = commands.Bot(command_prefix=BOT_PREFIX)
+BOT_PREFIX = "$"
+bot = commands.Bot(command_prefix=BOT_PREFIX, description='Virtual Assistant for Server 2.0')
 token = "Nzc4Mzg4MTc4MzM5MzY0OTE1.X7RQew.znFjLmYR5OmyKCRXil2B_oAdz50"
+
+
+if __name__ == '__main__':
+    for file in os.listdir('cogs'):
+        if file.endswith(".py"):
+            bot.load_extension(f"cogs.{file[:-3]}")
 
 
 @bot.event
 async def on_ready():
-    print("----------")
-    print(f"Bot Name: {bot.user.name}")
-    print(f"Bot id: {bot.user.id}")
-    print("Discord Version: " + discord.__version__)
-    print("----------")
+    print(f'\nLogged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}\n')
+    print(f'Successfully logged in and booted!')
+    await bot.change_presence(activity=discord.Game(name='훌륭한 봇이 되는 법 101'))
 
 
-@bot.command()
-async def backup(ctx):
-    """Chat backup commands, required arguments"""
-    await ctx.send(f"**⚠ Chat backup function is not implemented yet**")
-    # if arg == "on":
-    #     await ctx.send("**⚠️ Chat backup enabled**")
-    # elif arg == "off":
-    #     await ctx.send("**⚠ Chat backup disabled**")
-    # elif arg == "status":
-    #     messege = "on" if backUpFlag else "off"
-    #     await ctx.send(f"**⚠ Chat backup is {messege} **")
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("⚠ **Missing Required Argument**")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send("⚠ **Bad Argument**")
+    else:
+        embed = discord.Embed(title="⚠ Error", description=f"```{error}```", color=0xFF0000)
+        await ctx.send(embed=embed)
 
 
-@bot.command(aliases=['clean'])
-async def clear(ctx):
-    """Clear recent 100 messages"""
-    await ctx.channel.purge(limit=100)
+@bot.command(name="load", hidden=True)
+@commands.is_owner()
+async def load_commands(ctx, extension):
+    bot.load_extension(f"cogs.{extension}")
+    await ctx.send(f"⚠ **Successfully load the extension, \"{extension}\"**")
 
 
-@bot.command()
-async def siri(ctx):
-    """General call"""
-    await ctx.send("How can I help?")
+@bot.command(name="unload", hidden=True)
+@commands.is_owner()
+async def unload_commands(ctx, extension):
+    bot.unload_extension(f"cogs.{extension}")
+    await ctx.send(f"⚠ **Successfully unload the extension, \"{extension}\"**")
 
 
-@bot.command()
-async def echo(ctx, *, message: str):
-    """Echo given message"""
-    await ctx.send(message)
+@bot.command(name="reload", hidden=True)
+@commands.is_owner()
+async def reload_commands(ctx, extension=None):
+    if extension is None:
+        for file in os.listdir("cogs"):
+            if file.endswith(".py"):
+                bot.unload_extension(f"cogs.{file[:-3]}")
+                bot.load_extension(f"cogs.{file[:-3]}")
+        await ctx.send("⚠ **Successfully reloads every extension**")
+        print("⚠ **Successfully reloads every extension**")
+    else:
+        bot.unload_extension(f"cogs.{extension}")
+        bot.load_extension(f"cogs.{extension}")
+        await ctx.send(f"⚠ **Successfully reload the extension, \"{extension}\"**")
 
 
-@bot.command(pass_context=True, aliases=['flip', 'flipcoin'])
-async def coin(ctx):
-    """Flip a coin"""
-    images = [
-        "https://upload.wikimedia.org/wikipedia/en/6/6c/Toonie_-_back.png",
-        "https://upload.wikimedia.org/wikipedia/en/d/d2/Toonie_-_front.png"
-    ]
-    result = random.randint(0, 1)
-    embed = discord.Embed(
-        title="🪙 Flip a Coin",
-        color=0xc0c0c0
-    )
-    embed.set_thumbnail(url=images[result])
-    embed.add_field(
-        name="Your result is... " + ("Face!" if result == 0 else "Tail!"),
-        value='\u200b',
-        inline=False
-    )
-    embed.set_footer(
-        text=f"Requested by {ctx.author}",
-        icon_url=ctx.author.avatar_url_as(format="png")
-    )
-    await ctx.send(embed=embed)
-
-
-@bot.command()
-async def dice(ctx):
-    """Roll the dice"""
-    result = random.randint(1, 6)
-    embed = discord.Embed(
-        title="🎲 Roll a Dice",
-        color=0xc0c0c0
-    )
-    embed.set_thumbnail(url="")
-    embed.add_field(
-        name=f"Your result is... {result}!",
-        value='\u200b',
-        inline=False
-    )
-    embed.set_footer(
-        text=f"Requested by {ctx.author}",
-        icon_url=ctx.author.avatar_url_as(format="png")
-    )
-    await ctx.send(embed=embed)
-
-
-@bot.command(aliases=['vancouver'])
-async def time(ctx):
-    """Shows time in various cities"""
-    embed = discord.Embed(
-        title="🌎 World Clock",
-        color=0xc0c0c0
-    )
-    now = datetime.now()
-    embed.add_field(
-        name="Vancouver",
-        value=f"`Vancouver {now.year}/{now.month}/{now.day} {now.hour}:{now.minute}`",
-        inline=False
-    )
-
-
-
-    await ctx.send(f"`Vancouver {now.year}/{now.month}/{now.day} {now.hour}:{now.minute}`")
-
-
-bot.run(token)
+bot.run(token, bot=True, reconnect=True)
