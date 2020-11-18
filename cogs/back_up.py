@@ -7,7 +7,7 @@ class BackUp(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
+    @commands.command(name='backup')
     @commands.guild_only()
     async def backup(self, ctx):
         """Control chat backup system, requires permission"""

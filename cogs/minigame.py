@@ -9,12 +9,12 @@ class MiniGame(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['flip', 'flipcoin', '동전'])
+    @commands.command(name='coin', aliases=['flip', 'flipcoin', '동전'])
     async def coin(self, ctx):
         """Flip a coin"""
         images = [
-            "https://upload.wikimedia.org/wikipedia/en/6/6c/Toonie_-_back.png",
-            "https://upload.wikimedia.org/wikipedia/en/d/d2/Toonie_-_front.png"
+            "https://imgur.com/a/MqD9h8x",
+            "https://imgur.com/a/LZrUZVL"
         ]
         result = random.randint(0, 1)
         embed = discord.Embed(
@@ -33,7 +33,7 @@ class MiniGame(commands.Cog):
         )
         await ctx.send(embed=embed)
 
-    @commands.command(aliases=['roll', '주사위'])
+    @commands.command(name='dice', aliases=['roll', '주사위'])
     async def dice(self, ctx):
         """Roll the dice"""
         result = random.randint(1, 6)

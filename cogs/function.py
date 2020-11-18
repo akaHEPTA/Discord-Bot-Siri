@@ -7,23 +7,24 @@ class Function(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['clean', '청소'])
+    @commands.command(name="clear", aliases=['clean', '청소'])
+    @commands.is_owner()
     async def clear(self, ctx):
         """Remove recent 100 messages"""
         await ctx.channel.purge(limit=100)
 
-    @commands.command(aliases=['메아리', '에코'], hidden=True)
+    @commands.command(name="echo", aliases=['에코'])
     async def echo(self, ctx, *, message: str):
         """Echo given message"""
         await ctx.channel.purge(limit=1)
         await ctx.send(message)
 
-    @commands.command(aliases=['시리야'])
+    @commands.command(name="siri", aliases=['시리야'])
     async def siri(self, ctx):
         """General call"""
         await ctx.send("How can I help?")
 
-    @commands.command(hidden=True)
+    @commands.command(name="birthday", hidden=True)
     @commands.is_owner()
     async def birthday(self, ctx):
         await ctx.send("My birthday is November 17th, 2020. Thank you so much, dad! <@311874744674811904>")

@@ -10,7 +10,7 @@ class Information(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(aliases=['clock', '시간'])
+    @commands.command(name='time', aliases=['clock', '시간'])
     async def time(self, ctx):
         """Show time of cities in various timezones"""
         fmt = "%Y-%m-%d %H:%M:%S"
@@ -38,6 +38,12 @@ class Information(commands.Cog):
 
     @commands.command(name="stock")
     async def stock(self, ctx):
+        """Show stock market data"""
+        await ctx.send("⚠ **준비중인 기능입니다**")
+
+    @commands.command(namㄷ="weather")
+    async def weather(self, ctx):
+        """Show weather of cities"""
         await ctx.send("⚠ **준비중인 기능입니다**")
 
 
