@@ -23,6 +23,11 @@ class Function(commands.Cog):
         """General call"""
         await ctx.send("How can I help?")
 
+    @commands.command(hidden=True)
+    @commands.is_owner()
+    async def birthday(self, ctx):
+        await ctx.send("My birthday is November 17th, 2020. Thank you so much, dad! <@311874744674811904>")
+
 
 def setup(bot):
     bot.add_cog(Function(bot))
