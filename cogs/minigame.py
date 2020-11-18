@@ -13,8 +13,8 @@ class MiniGame(commands.Cog):
     async def coin(self, ctx):
         """Flip a coin"""
         images = [
-            "https://imgur.com/a/MqD9h8x",
-            "https://imgur.com/a/LZrUZVL"
+            "https://i.ibb.co/yPCBCm9/toonie-face.png",
+            "https://i.ibb.co/fnp9PbJ/toonie-tail.png"
         ]
         result = random.randint(0, 1)
         embed = discord.Embed(

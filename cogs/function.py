@@ -8,7 +8,6 @@ class Function(commands.Cog):
         self.bot = bot
 
     @commands.command(name="clear", aliases=['clean', '청소'])
-    @commands.is_owner()
     async def clear(self, ctx):
         """Remove recent 100 messages"""
         await ctx.channel.purge(limit=100)
