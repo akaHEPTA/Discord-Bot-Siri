@@ -1,0 +1,48 @@
+{
+   "coord":{
+      "lon":-122.91,
+      "lat":49.21
+   },
+   "weather":[
+      {
+         "id":501,
+         "main":"Rain",
+         "description":"moderate rain",
+         "icon":"10n"
+      }
+   ],
+   "base":"stations",
+   "main":{
+      "temp":279.26,
+      "feels_like":277.67,
+      "temp_min":278.15,
+      "temp_max":280.15,
+      "pressure":1009,
+      "humidity":100,
+      "sea_level":1009,
+      "grnd_level":1001
+   },
+   "visibility":1040,
+   "wind":{
+      "speed":1,
+      "deg":90
+   },
+   "rain":{
+      "1h":1.69
+   },
+   "clouds":{
+      "all":100
+   },
+   "dt":1605764048,
+   "sys":{
+      "type":1,
+      "id":376,
+      "country":"CA",
+      "sunrise":1605713259,
+      "sunset":1605745595
+   },
+   "timezone":-28800,
+   "id":6087844,
+   "name":"New Westminster",
+   "cod":200
+}

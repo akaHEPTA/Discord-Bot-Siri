@@ -28,6 +28,11 @@ class Function(commands.Cog):
     async def birthday(self, ctx):
         await ctx.send("My birthday is November 17th, 2020. Thank you so much, dad! <@311874744674811904>")
 
+    @commands.command(name="timer")
+    async def timer(self, ctx):
+        """"""
+        await ctx.send("⚠ **준비중인 기능입니다**")
+
 
 def setup(bot):
     bot.add_cog(Function(bot))

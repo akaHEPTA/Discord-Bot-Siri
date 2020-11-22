@@ -36,12 +36,20 @@ class MiniGame(commands.Cog):
     @commands.command(name='dice', aliases=['roll', '주사위'])
     async def dice(self, ctx):
         """Roll the dice"""
+        images = [
+            "https://i.ibb.co/sKGkQWj/dice1.png",
+            "https://i.ibb.co/pZHbgCh/dice2.png",
+            "https://i.ibb.co/RgpvnCd/dice3.png",
+            "https://i.ibb.co/gtbthCr/dice4.png",
+            "https://i.ibb.co/5cMhgSV/dice5.png",
+            "https://i.ibb.co/3v9wXRs/dice6.png"
+        ]
         result = random.randint(1, 6)
         embed = discord.Embed(
             title="🎲 Roll a Dice",
             color=0xc0c0c0
         )
-        embed.set_thumbnail(url="")
+        embed.set_thumbnail(url=images[result-1])
         embed.add_field(
             name=f"Your result is... {result}!",
             value='\u200b',
