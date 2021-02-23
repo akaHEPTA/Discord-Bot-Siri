@@ -7,7 +7,7 @@ import discord.utils
 
 BOT_PREFIX = "$"
 bot = commands.Bot(command_prefix=BOT_PREFIX, description='Virtual Assistant Siri for Server 2.0')
-token = "Nzc4Mzg4MTc4MzM5MzY0OTE1.X7RQew.znFjLmYR5OmyKCRXil2B_oAdz50"
+token = "TOKEN_REMOVED"
 
 
 if __name__ == '__main__':
